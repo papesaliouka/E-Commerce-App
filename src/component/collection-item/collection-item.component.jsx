@@ -3,7 +3,7 @@ import React from 'react';
 import './collection-item.styles.scss';
 
 
-const CollectionItem = ({ name, price, imageUrl}) => {
+const CollectionItem = ({name, price, imageUrl}) => {
   return (
     <div className='collection-item'>
       <div

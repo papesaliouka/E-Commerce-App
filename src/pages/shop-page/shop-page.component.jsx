@@ -18,7 +18,6 @@ class ShopPage extends Component {
            <CollectionPreview key={id} {...otherCollectionsProps} /> 
           ))
         }
-        
       </div>
     );
   }
