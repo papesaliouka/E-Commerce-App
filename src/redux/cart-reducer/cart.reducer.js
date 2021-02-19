@@ -1,5 +1,3 @@
-
-import { removeItem } from './cart.actions'
 import CartActionsTypes from './cart.types'
 import { AddItemToCart, RemoveItemToCart } from './cart.utils'
 const INITIAL_STATE = {
