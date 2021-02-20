@@ -37,8 +37,10 @@ class App extends Component {
           }); 
       } else {
         setCurrentUser(userAuth);
-      }      
+      }; 
     });
+
+    
   }
 
   componentWillUnmount(){
@@ -61,7 +63,7 @@ class App extends Component {
 }
 
 const mapStateToProps= createStructuredSelector({
- currentUser: SelectCurrentUser
+ currentUser: SelectCurrentUser,
 })
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
