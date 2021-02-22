@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 
+import {connect} from 'react-redux';
+
 import './sign-in.styles.scss';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-import {auth, signInWithGoogle} from '../../firebase/firebase.utils';
+
+import { emailSignInStart, googleSignInStart} from '../../redux/user-reducer/user.actions';
 
 class SignIn extends Component {
   constructor() {
@@ -16,16 +19,9 @@ class SignIn extends Component {
 
   handleSubmit= async event => {
     event.preventDefault();
-    
+    const {emailSignInStart}= this.props;
     const {email, password} = this.state;
-
-    try{
-      await auth.signInWithEmailAndPassword(email, password);
-      this.setState({email:'', password:''});
-
-    } catch (error){
-      console.error(error)
-    }
+    emailSignInStart(email, password)
   }
 
   
@@ -35,6 +31,7 @@ class SignIn extends Component {
     }
 
   render(){
+    const {googleSignInStart} = this.props;
     return(
       <div className='sign-in'>
         <h2> I already have an account </h2>
@@ -45,7 +42,7 @@ class SignIn extends Component {
           <FormInput type="password" name="password" label='Password' value={this.state.password} required handleChange={this.handleChange}/>
           <div className='buttons'>
             <CustomButton type="submit"> SIGN IN </CustomButton>
-            <CustomButton onClick={signInWithGoogle} isGoogleSignIn> {''} SIGN IN WITH GOOGLE {''} </CustomButton>
+            <CustomButton type="button" onClick={googleSignInStart} isGoogleSignIn> {''} SIGN IN WITH GOOGLE {''} </CustomButton>
           </div>
         </form>
       </div>
@@ -53,4 +50,10 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+
+const mapDispatchToProps = dispatch => ({
+  googleSignInStart: () => dispatch(googleSignInStart()),
+  emailSignInStart: (email, password) => dispatch(emailSignInStart({email, password}))
+});
+
+export default connect(null, mapDispatchToProps)(SignIn);

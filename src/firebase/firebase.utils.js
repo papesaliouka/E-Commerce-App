@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/firebase-firestore';
 import 'firebase/auth';
 
+
 const config = {
   apiKey: "AIzaSyC997PFPIWdrt9Wr9YVFJh7D81xTCD-t8g",
     authDomain: "crwn-db-7a0b8.firebaseapp.com",
@@ -33,6 +34,16 @@ export const createUserProfileDocument = async (userAuth, additionnalData) => {
     } catch (error) { console.log('error creating user', error.message);}
   }
   return userRef;
+};
+
+
+export const getUserSession= () => {
+  return new Promise((resolved, rejects) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe ();
+      resolved(userAuth)
+    }, rejects)
+  })
 };
 
 
@@ -69,8 +80,8 @@ firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const firestore= firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({prompt: 'select_account'});
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({prompt: 'select_account'});
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export default firebase;
