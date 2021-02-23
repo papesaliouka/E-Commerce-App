@@ -16,8 +16,6 @@ const SignIn = ({googleSignInStart, emailSignInStart}) => {
       event.preventDefault();
       emailSignInStart(email, password)
   }
-
-  
   const handleChange = (event) => {
         const{name, value} = event.target;
         setcredential({...credential, [name]: value})
